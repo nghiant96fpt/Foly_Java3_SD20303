@@ -34,6 +34,17 @@ public class PostFormController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		ArrayList<Category> categories = new ArrayList<Category>();
+
+		for (int index = 0; index < 5; index++) {
+			Category category = new Category();
+			category.setId(index + 1);
+			category.setName("Category " + (index + 1));
+			categories.add(category);
+		}
+
+		req.setAttribute("categories", categories);
+
 		req.getRequestDispatcher("/posts-form.jsp").forward(req, resp);
 	}
 }

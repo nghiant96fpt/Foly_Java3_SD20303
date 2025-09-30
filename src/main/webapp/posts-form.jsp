@@ -12,7 +12,8 @@
 <body>
 	<div class="container">
 		<div class="col-6 offset-3">
-			<form>
+			<form method="POST"
+				action="${pageContext.request.contextPath}/admin/posts-form">
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Tiêu đề</label>
 				  <input type="text" class="form-control">
@@ -33,7 +34,10 @@
 				  <select class="form-select" aria-label="Default select example">
 					  <option selected>----Chọn danh mục------</option>
 					  <!-- c:forEach -->
-					</select>
+					  <c:forEach items="${categories}" var="cat">
+					  	<option>${cat.name}</option>
+					  </c:forEach>
+				</select>
 				</div>
 				
 				<div class="mb-3">
