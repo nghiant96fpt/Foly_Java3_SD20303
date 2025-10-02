@@ -13,29 +13,29 @@
 	<div class="container">
 		<div class="col-6 offset-3">
 			<form method="POST"
-				action="${pageContext.request.contextPath}/admin/posts-form">
+				action="${pageContext.request.contextPath}/admin/posts-form"
+				enctype="multipart/form-data">
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Tiêu đề</label>
-				  <input type="text" class="form-control">
+				  <input value="${bean.title}" name="title" type="text" class="form-control">
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Nội dung</label>
-				  <textarea class="form-control" rows="3"></textarea>
+				  <textarea name="desc" class="form-control" rows="3">${bean.desc}</textarea>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Hình ảnh</label>
-				  <input type="file" class="form-control" accept="image/*" multiple>
+				  <input name="image" type="file" class="form-control" accept="image/*">
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Danh mục bài viết</label>
-				  <select class="form-select" aria-label="Default select example">
-					  <option selected>----Chọn danh mục------</option>
-					  <!-- c:forEach -->
+				  <select name="category" class="form-select" aria-label="Default select example">
+					  <option ${bean == null || bean.category == 0 ? 'selected' : '' } value="0">----Chọn danh mục------</option>
 					  <c:forEach items="${categories}" var="cat">
-					  	<option>${cat.name}</option>
+					  	<option ${cat.id == bean.category ? 'selected' : ''}  value="${cat.id}">${cat.name}</option>
 					  </c:forEach>
 				</select>
 				</div>
@@ -43,13 +43,13 @@
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Trạng thái bài viết</label>
 				  <div class="form-check">
-					  <input class="form-check-input" type="radio" id="radioDefault1">
+					  <input ${bean.status == 1 ? 'checked' : ''} name="status" value="1" class="form-check-input" type="radio" id="radioDefault1">
 					  <label class="form-check-label" for="radioDefault1">
 					   	Hiển thị
 					  </label>
 					</div>
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" id="radioDefault2">
+					  <input ${bean.status == 0 ? 'checked' : ''} name="status" value="0" class="form-check-input" type="radio" id="radioDefault2">
 					  <label class="form-check-label" for="radioDefault2">
 					   	Ẩn
 					  </label>
