@@ -53,20 +53,20 @@ public class PostFormController extends HttpServlet {
 		req.setAttribute("categories", categories);
 
 //		lấy dữ liệu từ input file 
-		Part image = req.getPart("image");
-
-//		tên file được lưu trên máy của user khi upload 
-		System.out.println(image.getSubmittedFileName());
-
-//		kiểu của file khi được upload 
-//		image => image/png || image/jpg || ...
-//		video => video/mp4 || ...
-//		audio => audio/mp3 || ...
-//		pdf = > application/pdf
-		System.out.println(image.getContentType());
-
-//		kích thước của file được upload (byte)
-		System.out.println(image.getSize());
+//		Part image = req.getPart("image");
+//
+////		tên file được lưu trên máy của user khi upload 
+//		System.out.println(image.getSubmittedFileName());
+//
+////		kiểu của file khi được upload 
+////		image => image/png || image/jpg || ...
+////		video => video/mp4 || ...
+////		audio => audio/mp3 || ...
+////		pdf = > application/pdf
+//		System.out.println(image.getContentType());
+//
+////		kích thước của file được upload (byte)
+//		System.out.println(image.getSize());
 //		convert 25MB => ? byte
 //		int maxSize = 1024 * 1024 * 25;
 
@@ -74,8 +74,16 @@ public class PostFormController extends HttpServlet {
 			PostsFormBean bean = new PostsFormBean();
 
 			BeanUtils.populate(bean, req.getParameterMap());
+//			Chỉ convert được string, int, boolean,...
+
+			Part image = req.getPart("image");
+			bean.setImage(image);
 
 			req.setAttribute("bean", bean);
+
+			if (bean.getErrors().isEmpty()) {
+//				TODO
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
