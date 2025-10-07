@@ -1,6 +1,6 @@
 package com.fpoly.java3.entities;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +12,12 @@ import lombok.NoArgsConstructor;
 //@Setter
 //@Getter
 public class User {
+	private int id;
 	private String email;
 	private String password;
 	private String name;
 	private String phone;
-	private boolean gender;
+	private int gender;
 	private Date birthDay;
 	private int role;
 }

@@ -83,6 +83,19 @@ public class PostFormController extends HttpServlet {
 
 			if (bean.getErrors().isEmpty()) {
 //				TODO
+//				Lưu ảnh vào project => tên ảnh
+//				Lưu các thông tin của bài viết và tên ảnh vào DB
+
+//				Đường đẫn lưu file trong project
+				String path = "/assets/images/" + bean.getImage().getSubmittedFileName();
+
+//				Đừng đẫn cứng lưu file bên trong server tomcat
+				String tomcatPath = req.getServletContext().getRealPath(path);
+
+//				Lưu file vào đường đãn cứng của tomcat
+				bean.getImage().write(tomcatPath);
+
+				System.out.println(tomcatPath);
 			}
 
 		} catch (Exception e) {
