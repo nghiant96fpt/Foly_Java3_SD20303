@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
+
+import com.fpoly.java3.beans.RegisterBean;
+
 @WebServlet("/register")
 public class RegisterController extends HttpServlet {
 	@Override
@@ -21,21 +25,16 @@ public class RegisterController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
 
-//		Lấy giá trị từ ô input của form 
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
-		String name = req.getParameter("name");
-		String gender = req.getParameter("gender");
-		String phone = req.getParameter("phone");
-		String birthDay = req.getParameter("birthDay");
+		try {
+			RegisterBean bean = new RegisterBean();
 
-//		Trả giá trị lại cho ô input 
-		req.setAttribute("email", email);
-		req.setAttribute("password", password);
-		req.setAttribute("name", name);
-		req.setAttribute("gender", gender);
-		req.setAttribute("phone", phone);
-		req.setAttribute("birthDay", birthDay);
+			BeanUtils.populate(bean, req.getParameterMap());
+
+			req.setAttribute("bean", bean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		req.getRequestDispatcher("/register.jsp").forward(req, resp);
 	}

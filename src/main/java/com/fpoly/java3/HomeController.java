@@ -2,7 +2,6 @@ package com.fpoly.java3;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,15 +50,15 @@ public class HomeController extends HttpServlet {
 		user.setName("Nguyen Van A");
 		user.setPassword("123456");
 		user.setPhone("0123456789");
-		user.setGender(true);
+//		user.setGender(true);
 		user.setRole(0); // role == 0 => User || role == 1 => Admin
 
 //		Ngày tháng năm sinh của cá nhân 
 //		23/09/2005
 //		new Date() => 23/09/2025 
-		Date date = new Date(2005, 8, 23);
-
-		user.setBirthDay(date);
+//		Date date = new Date(2005, 8, 23);
+//
+//		user.setBirthDay(date);
 
 		req.setAttribute("user", user);
 

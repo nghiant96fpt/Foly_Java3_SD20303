@@ -6,7 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
+<style>
+err{
+	color: red;
+	font-size: 14px
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -16,16 +21,19 @@
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Email</label>
 				  <input value="${email}" name="email" type="text" class="form-control">
+				  <err>${bean.errors.errEmail}</err>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
 				  <input value="${password}" name="password" type="password" class="form-control">
+				  <err>${bean.errors.errPassword}</err>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Họ và tên</label>
 				  <input value="${name}" name="name" type="text" class="form-control">
+				  <err>${bean.errors.errName}</err>
 				</div>
 				
 				<div class="mb-3">
@@ -42,16 +50,19 @@
 					   	Nữ
 					  </label>
 					</div>
+					<err>${bean.errors.errGender}</err>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Số điện thoại</label>
 				  <input value="${phone}" name="phone" type="text" class="form-control">
+				  <err>${bean.errors.errPhone}</err>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Ngày sinh</label>
 				  <input value="${birthDay}" name="birthDay" type="date" class="form-control">
+				  <err>${bean.errors.errBirthDay}</err>
 				</div>
 				
 				<button type="submit" class="btn btn-primary">Đăng ký</button>
