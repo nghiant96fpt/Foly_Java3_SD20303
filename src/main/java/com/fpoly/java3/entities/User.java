@@ -20,4 +20,7 @@ public class User {
 	private int gender;
 	private Date birthDay;
 	private int role;
+//	0 == user
+//	1 == editer
+//	2 == admin
 }

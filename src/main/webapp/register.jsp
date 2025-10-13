@@ -20,32 +20,32 @@ err{
 				action="${pageContext.request.contextPath}/register">
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Email</label>
-				  <input value="${email}" name="email" type="text" class="form-control">
+				  <input value="${bean.email}" name="email" type="text" class="form-control">
 				  <err>${bean.errors.errEmail}</err>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
-				  <input value="${password}" name="password" type="password" class="form-control">
+				  <input value="${bean.password}" name="password" type="password" class="form-control">
 				  <err>${bean.errors.errPassword}</err>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Họ và tên</label>
-				  <input value="${name}" name="name" type="text" class="form-control">
+				  <input value="${bean.name}" name="name" type="text" class="form-control">
 				  <err>${bean.errors.errName}</err>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Giới tính</label>
 				  <div class="form-check">
-					  <input name="gender" ${gender == '0' ? 'checked' : ''} value="0" class="form-check-input" type="radio" id="radioDefault1">
+					  <input name="gender" ${bean.gender == '0' ? 'checked' : ''} value="0" class="form-check-input" type="radio" id="radioDefault1">
 					  <label class="form-check-label" for="radioDefault1">
 					   	Nam
 					  </label>
 					</div>
 					<div class="form-check">
-					  <input name="gender" ${gender == '1' ? 'checked' : ''} value="1" class="form-check-input" type="radio" id="radioDefault2">
+					  <input name="gender" ${bean.gender == '1' ? 'checked' : ''} value="1" class="form-check-input" type="radio" id="radioDefault2">
 					  <label class="form-check-label" for="radioDefault2">
 					   	Nữ
 					  </label>
@@ -55,15 +55,18 @@ err{
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Số điện thoại</label>
-				  <input value="${phone}" name="phone" type="text" class="form-control">
+				  <input value="${bean.phone}" name="phone" type="text" class="form-control">
 				  <err>${bean.errors.errPhone}</err>
 				</div>
 				
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Ngày sinh</label>
-				  <input value="${birthDay}" name="birthDay" type="date" class="form-control">
+				  <input value="${bean.birthDay}" name="birthDay" type="date" class="form-control">
 				  <err>${bean.errors.errBirthDay}</err>
 				</div>
+				
+				
+				<err>${error}</err>
 				
 				<button type="submit" class="btn btn-primary">Đăng ký</button>
 			</form>

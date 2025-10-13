@@ -9,32 +9,41 @@ import com.fpoly.java3.entities.User;
 
 public class UserServices {
 
-	public boolean register(User user) {
-		try {
-//			kết nối db 
-			Connection connection = DatabaseConnect.connection();
+	public boolean register(User user) throws Exception {
+//		kết nối db 
+		Connection connection = DatabaseConnect.connection();
 
-			String insertSQL = "INSERT INTO users(email, password, name, birthday, gender, phone, role) VALUES(?, ?, ?, ?, ?, ?, ?)";
-//			Statement => INSERT INTO users(email, password, name, birthday, gender, phone, role) VALUES('" + email + "'
-			PreparedStatement statement = connection.prepareStatement(insertSQL);
-			statement.setString(1, user.getEmail());
-			statement.setString(2, user.getPassword());
-			statement.setString(3, user.getName());
-			statement.setDate(4, user.getBirthDay());
-			statement.setInt(5, user.getGender());
-			statement.setString(6, user.getPhone());
-			statement.setInt(7, user.getRole());
+//		Check trùng email
+//		nếu trùng thông báo lỗi
+//		không trùng thì thực hiện tiếp lệnh bên dưới 
 
-			boolean insertCheck = statement.execute();
+		String checkEmailSQL = "SELECT id FROM users WHERE email=?";
+		PreparedStatement statementCheckEmail = connection.prepareStatement(checkEmailSQL);
+		statementCheckEmail.setString(1, user.getEmail());
 
+		ResultSet resultSet = statementCheckEmail.executeQuery();
+
+		if (resultSet.next()) {
 			connection.close();
-
-			return insertCheck;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+			throw new Exception("Email đã tồn tại");
 		}
+
+		String insertSQL = "INSERT INTO users(email, password, name, birthday, gender, phone, role) VALUES(?, ?, ?, ?, ?, ?, ?)";
+//		Statement => INSERT INTO users(email, password, name, birthday, gender, phone, role) VALUES('" + email + "'
+		PreparedStatement statement = connection.prepareStatement(insertSQL);
+		statement.setString(1, user.getEmail());
+		statement.setString(2, user.getPassword());
+		statement.setString(3, user.getName());
+		statement.setDate(4, user.getBirthDay());
+		statement.setInt(5, user.getGender());
+		statement.setString(6, user.getPhone());
+		statement.setInt(7, user.getRole());
+
+		int rows = statement.executeUpdate();
+
+		connection.close();
+
+		return rows > 0;
 	}
 
 //	Xây dựng các phương thức

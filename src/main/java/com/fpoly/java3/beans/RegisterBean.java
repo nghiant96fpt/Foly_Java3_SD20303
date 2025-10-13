@@ -1,6 +1,6 @@
 package com.fpoly.java3.beans;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,12 +17,35 @@ public class RegisterBean {
 	private String name;
 	private int gender;
 	private String phone;
-	private Date birthDay;
+	private String birthDay; // 2025-10-12, 2010-10-11
 
 	public Map<String, String> getErrors() {
 		Map<String, String> map = new HashMap<String, String>();
 
-		if (!email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$\n")) {
+//		Lấy giá trị năm từ birthday 
+//		birthDay.split() => array String => parse từ string => int 
+
+		try {
+			String[] birthDayArr = birthDay.split("-");
+//			["2025", "10", "12"]
+			int year = Integer.parseInt(birthDayArr[0]);
+
+			Calendar calendar = Calendar.getInstance();
+			int yearNow = calendar.get(Calendar.YEAR);
+
+			if (yearNow - year < 18) {
+				map.put("errBirthDay", "Ngày sinh phải lớn hơn 18 tuổi");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("errBirthDay", "Ngày sinh phải lớn hơn 18 tuổi");
+		}
+
+//		if (new Date().getYear() - birthDay.getYear() < 18) {
+//			map.put("errBirthDay", "Ngày sinh phải lớn hơn 18 tuổi");
+//		}
+
+		if (!email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
 			map.put("errEmail", "Email không đúng định dạng");
 		}
 
@@ -40,10 +63,6 @@ public class RegisterBean {
 
 		if (!phone.matches("^0\\d{9}$")) {
 			map.put("errPhone", "Số điện thoại không đúng định dạng");
-		}
-
-		if (new Date().getYear() - birthDay.getYear() < 18) {
-			map.put("errBirthDay", "Ngày sinh phải lớn hơn 18 tuổi");
 		}
 
 		return map;
