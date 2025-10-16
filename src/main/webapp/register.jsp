@@ -39,13 +39,13 @@ err{
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label">Giới tính</label>
 				  <div class="form-check">
-					  <input name="gender" ${bean.gender == '0' ? 'checked' : ''} value="0" class="form-check-input" type="radio" id="radioDefault1">
+					  <input name="gender" ${bean.gender == '1' ? 'checked' : ''} value="1" class="form-check-input" type="radio" id="radioDefault1">
 					  <label class="form-check-label" for="radioDefault1">
 					   	Nam
 					  </label>
 					</div>
 					<div class="form-check">
-					  <input name="gender" ${bean.gender == '1' ? 'checked' : ''} value="1" class="form-check-input" type="radio" id="radioDefault2">
+					  <input name="gender" ${bean.gender == '2' ? 'checked' : ''} value="2" class="form-check-input" type="radio" id="radioDefault2">
 					  <label class="form-check-label" for="radioDefault2">
 					   	Nữ
 					  </label>

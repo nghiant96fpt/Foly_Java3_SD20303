@@ -151,10 +151,10 @@ public class UserServices {
 		}
 	}
 
-	public boolean login(String email, String password) {
+	public User login(String email, String password) {
 //		WHERE email => password => match => password == password
 		try {
-			String sqlUser = "SELECT password FROM users WHERE email=?";
+			String sqlUser = "SELECT * FROM users WHERE email=?";
 			Connection connection = DatabaseConnect.connection();
 
 			PreparedStatement statement = connection.prepareStatement(sqlUser);
@@ -163,16 +163,19 @@ public class UserServices {
 			ResultSet resultSet = statement.executeQuery();
 
 			if (resultSet.next()) {
-				String passwordDB = resultSet.getString("password");
+//				String passwordDB = resultSet.getString("password");
+				User user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setRole(resultSet.getInt("role"));
 
 				connection.close();
-				return passwordDB.equals(password);
+				return user;
 			}
 			connection.close();
-			return false;
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 }

@@ -58,7 +58,10 @@ public class RegisterController extends HttpServlet {
 				Boolean checkRegister = userServices.register(user);
 				if (checkRegister) {
 //					Đăng ký thành công 
-					req.setAttribute("error", "Đăng ký thành công");
+//					req.setAttribute("error", "Đăng ký thành công");
+
+					resp.sendRedirect(req.getContextPath() + "/login");
+					return;
 				} else {
 //					Đăng ký thất bại
 					req.setAttribute("error", "Đăng ký thất bại");

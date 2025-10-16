@@ -1,7 +1,7 @@
 package com.fpoly.java3;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,22 +15,17 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.fpoly.java3.beans.PostsFormBean;
 import com.fpoly.java3.entities.Category;
+import com.fpoly.java3.services.CategoryServices;
 
 @MultipartConfig
-@WebServlet("/admin/posts-form")
+@WebServlet("/editer/posts-form")
 public class PostFormController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		ArrayList<Category> categories = new ArrayList<Category>();
-
-		for (int index = 0; index < 5; index++) {
-			Category category = new Category();
-			category.setId(index + 1);
-			category.setName("Category " + (index + 1));
-			categories.add(category);
-		}
+		CategoryServices categoryServices = new CategoryServices();
+		List<Category> categories = categoryServices.getList();
 
 		req.setAttribute("categories", categories);
 
@@ -41,14 +36,9 @@ public class PostFormController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
-		ArrayList<Category> categories = new ArrayList<Category>();
 
-		for (int index = 0; index < 5; index++) {
-			Category category = new Category();
-			category.setId(index + 1);
-			category.setName("Category " + (index + 1));
-			categories.add(category);
-		}
+		CategoryServices categoryServices = new CategoryServices();
+		List<Category> categories = categoryServices.getList();
 
 		req.setAttribute("categories", categories);
 
