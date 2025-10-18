@@ -41,7 +41,7 @@ public class PostsFormBean {
 		}
 //		image/png, image/jpg,...
 //		20KB => ? byte
-		int maxSize = 1024 * 200;
+		int maxSize = 1024 * 1024 * 10;
 		if (image == null) {
 			map.put("errImage", "File upload bắt buộc chọn");
 		} else if (!image.getContentType().startsWith("image/")) {
