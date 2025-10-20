@@ -35,6 +35,47 @@ public class PostFormController extends HttpServlet {
 
 		req.setAttribute("categories", categories);
 
+//		thực hiện lấy id bài viét từ url ra
+//		Kiểm tra id bài viết nếu == null => thực hiện chức năng thêm
+//		Ngược lại là chức năng sửa
+
+		String id = req.getParameter("id"); // ""
+
+		if (id != null) {
+			try {
+				System.out.println("Sửa");
+
+//				lấy thông tin của bài viết từ db 
+//				bất kỳ thông tin nào được lấy ra ở url có tiền tố "/editer/
+//				phải có where đi kèm user id *****
+
+				Cookie[] cookies = req.getCookies();
+
+				String userId = "";
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("userId")) {
+						userId = cookie.getValue();
+						break;
+					}
+				}
+				NewsServices newsServices = new NewsServices();
+				News news = newsServices.getNewsByIdAndUserId(Integer.parseInt(id), Integer.parseInt(userId));
+
+				if (news == null) {
+					resp.sendRedirect(req.getContextPath() + "/editer/posts");
+					return;
+				}
+
+//				Chuyển đổi dữ liệu từ entity qua beans
+//				Sau đó mới gửi attribute bean qua jsp để hiển thị
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				resp.sendRedirect(req.getContextPath() + "/editer/posts");
+				return;
+			}
+		}
+
 		req.getRequestDispatcher("/posts-form.jsp").forward(req, resp);
 	}
 
