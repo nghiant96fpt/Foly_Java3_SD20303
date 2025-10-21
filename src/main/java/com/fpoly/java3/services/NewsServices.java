@@ -212,4 +212,49 @@ public class NewsServices {
 
 		return null;
 	}
+
+	public News getNewsById(int id, int userId) {
+		try {
+			String sql = "SELECT n.*, u.name AS auth_name, c.name AS cat_name,"
+					+ " (SELECT COUNT(*) FROM favourites WHERE news_id = n.id) AS fav_count, "
+					+ " (SELECT id FROM favourites WHERE user_id=? AND news_id=n.id) AS fav_id FROM news n "
+					+ "JOIN users u ON n.user_id = u.id JOIN categories c ON n.cat_id = c.id WHERE n.id=?";
+
+			Connection connection = DatabaseConnect.connection();
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, userId);
+			statement.setInt(2, id);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				News news = new News();
+				news.setId(resultSet.getInt("id"));
+				news.setTitle(resultSet.getString("title"));
+				news.setContent(resultSet.getString("content"));
+				news.setImage(resultSet.getString("image"));
+				news.setActive(resultSet.getBoolean("is_active"));
+				news.setCreateDate(resultSet.getDate("create_date"));
+				news.setViewCount(resultSet.getInt("view_count"));
+
+				User user = new User();
+				user.setName(resultSet.getString("auth_name"));
+				news.setUser(user);
+
+				Category category = new Category();
+				category.setName(resultSet.getString("cat_name"));
+				news.setCategory(category);
+
+				news.setFavCount(resultSet.getInt("fav_count"));
+				news.setFavId(resultSet.getString("fav_id"));
+
+				return news;
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 }

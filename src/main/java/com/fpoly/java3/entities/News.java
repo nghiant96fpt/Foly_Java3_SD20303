@@ -19,6 +19,8 @@ public class News {
 	private int viewCount;
 	private boolean isActive;
 	private Category category; // FK
+	private int favCount;
+	private String favId;
 }
 /*
  * lấy ra danh sách bài viết có các thông tin của bài viêt và tên danh mục, tên

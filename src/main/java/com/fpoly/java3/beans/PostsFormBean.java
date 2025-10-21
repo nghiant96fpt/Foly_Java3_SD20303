@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class PostsFormBean {
+	private int id;
 	private String title;
 	private String desc;
 	private Part image;

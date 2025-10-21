@@ -68,6 +68,14 @@ public class PostFormController extends HttpServlet {
 
 //				Chuyển đổi dữ liệu từ entity qua beans
 //				Sau đó mới gửi attribute bean qua jsp để hiển thị
+				PostsFormBean bean = new PostsFormBean();
+				bean.setId(news.getId());
+				bean.setTitle(news.getTitle());
+				bean.setDesc(news.getContent());
+				bean.setCategory(news.getCategory().getId());
+				bean.setStatus(news.isActive() ? 1 : 2);
+
+				req.setAttribute("bean", bean);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -180,13 +188,30 @@ public class PostFormController extends HttpServlet {
 				news.setCategory(category);
 
 				NewsServices newsServices = new NewsServices();
-				boolean checkAddNews = newsServices.addNews(news);
 
-				if (checkAddNews) {
-					System.out.println("Thêm thành công");
+				if (bean.getId() == 0) {
+//					Thêm
+					boolean checkAddNews = newsServices.addNews(news);
+
+					if (checkAddNews) {
+						resp.sendRedirect(req.getContextPath() + "/editer/posts");
+						return;
+					} else {
+						System.out.println("Thêm thất bại");
+					}
 				} else {
-					System.out.println("Thêm thất bại");
+//					Sửa
+					news.setId(bean.getId());
+					boolean checkUpdateNews = newsServices.updateNews(news);
+
+					if (checkUpdateNews) {
+						resp.sendRedirect(req.getContextPath() + "/editer/posts");
+						return;
+					} else {
+						System.out.println("Sửa thất bại");
+					}
 				}
+
 			}
 
 		} catch (Exception e) {
